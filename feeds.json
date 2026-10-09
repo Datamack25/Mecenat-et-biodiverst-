@@ -1,0 +1,20 @@
+[
+{"theme":"outremer","territory":"Outre-mer","q":"outre-mer actualité"},
+{"theme":"outremer","territory":"Guadeloupe","q":"Guadeloupe actualité"},
+{"theme":"outremer","territory":"Martinique","q":"Martinique actualité"},
+{"theme":"outremer","territory":"Guyane","q":"Guyane actualité"},
+{"theme":"outremer","territory":"La Réunion","q":"La Réunion actualité"},
+{"theme":"outremer","territory":"Mayotte","q":"Mayotte actualité"},
+{"theme":"outremer","territory":"Nouvelle-Calédonie","q":"Nouvelle-Calédonie actualité"},
+{"theme":"outremer","territory":"Polynésie","q":"Polynésie française actualité"},
+{"theme":"outremer","territory":"SPM / Wallis","q":"Saint-Pierre-et-Miquelon OR Wallis-et-Futuna"},
+{"theme":"biodiversite","territory":"Outre-mer","q":"biodiversité outre-mer"},
+{"theme":"biodiversite","territory":"Outre-mer","q":"récifs coralliens outre-mer"},
+{"theme":"biodiversite","territory":"Guyane","q":"Guyane forêt biodiversité"},
+{"theme":"insertion","territory":"Outre-mer","q":"insertion professionnelle outre-mer"},
+{"theme":"insertion","territory":"Outre-mer","q":"emploi jeunes outre-mer"},
+{"theme":"insertion","territory":"Outre-mer","q":"service militaire adapté"},
+{"theme":"mecenat","territory":"Outre-mer","q":"mécénat outre-mer"},
+{"theme":"mecenat","territory":"Outre-mer","q":"mécénat biodiversité fondation"},
+{"theme":"mecenat","territory":"Outre-mer","q":"mécénat environnement entreprise"}
+]

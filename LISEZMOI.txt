@@ -1,0 +1,4 @@
+Images du bandeau d'accueil (diaporama)
+- Déposez ici hero1.jpg, hero2.jpg, hero3.jpg, hero4.jpg (formats acceptés : jpg, jpeg, png, webp).
+- Format conseillé : horizontal, 1600 x 640 px (ratio 5:2), sujet au centre. L'application recadre et compresse automatiquement.
+- Utilisez des photos libres de droits (Wikimedia Commons, Unsplash, Pexels) et vérifiez la licence.
