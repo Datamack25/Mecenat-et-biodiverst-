@@ -42,12 +42,25 @@ def ensure(core):
         w = csv.writer(open(g, "w", encoding="utf-8", newline="")); w.writerow(["territoire", "commune", "type", "statut"]); w.writerows(geo_rows())
     have = {core.norm(r["terme"]) for r in csv.DictReader(open(core.CSV, encoding="utf-8"))}
     new = [[t, c, d, e, "Base enrichie", "2026-10-09"] for t, c, d, e in ENC_NEW if core.norm(t) not in have]
+    try:  # vocabulaire complémentaire v3.2 (vocabulaire.py)
+        from vocabulaire import VOCAB
+        have |= {core.norm(r[0]) for r in new}
+        for t, c, d, e in VOCAB:
+            if core.norm(t) not in have:
+                have.add(core.norm(t)); new.append([t, c, d, e, "Vocabulaire v3.2", "2026-10-17"])
+    except Exception:
+        pass
     if new:
         csv.writer(open(core.CSV, "a", encoding="utf-8", newline="")).writerows(new)
 
 EXTRA_FEEDS = [{"theme": "rse", "territory": "France", "q": "RSE CSRD reporting durabilité"}, {"theme": "rse", "territory": "France", "q": "DPEF rapport de durabilité"},
  {"theme": "rse", "territory": "France", "q": "mécénat de compétences loi"}, {"theme": "emploi", "territory": "Outre-mer", "q": "recrutement biodiversité outre-mer"},
- {"theme": "emploi", "territory": "Outre-mer", "q": "offre emploi environnement Guadeloupe Martinique Réunion Guyane Mayotte"}]
+ {"theme": "emploi", "territory": "Outre-mer", "q": "offre emploi environnement Guadeloupe Martinique Réunion Guyane Mayotte"},
+ {"theme": "associations", "territory": "Martinique", "q": "association environnement OR insertion Martinique"},
+ {"theme": "associations", "territory": "Guadeloupe", "q": "association environnement OR insertion Guadeloupe"},
+ {"theme": "associations", "territory": "Guyane", "q": "association environnement OR insertion Guyane"},
+ {"theme": "associations", "territory": "La Réunion", "q": "association environnement OR insertion La Réunion"},
+ {"theme": "associations", "territory": "Mayotte", "q": "association environnement OR insertion Mayotte"}]
 
 READS = [
 ["Espèces envahissantes", "Débutant", "Centre de ressources sur les espèces exotiques envahissantes", "UICN France / OFB (site especes-exotiques-envahissantes.fr)", "Portail de référence : fiches espèces, retours d'expérience de gestion, réglementation et outils de prévention.", "Point d'entrée pratique pour identifier une espèce et savoir comment agir."],
