@@ -19,6 +19,11 @@ def norm(t):
 def ensure_data():
     """Crée data/ et les fichiers manquants à partir de defaults.py."""
     DATA.mkdir(exist_ok=True)
+    # Dépôt « à plat » (fichiers de données à la racine) : on les recopie dans data/ s'ils y manquent
+    for name in ("encyclopedie.csv", "acteurs.json", "feeds.json", "news.json", "termes_a_traiter.txt", "geographie.csv"):
+        src, dst = BASE / name, DATA / name
+        if src.exists() and src.stat().st_size and (not dst.exists() or dst.stat().st_size == 0):
+            dst.write_bytes(src.read_bytes())
     def w(p, txt):
         if not p.exists() or p.stat().st_size == 0:
             p.write_text(txt, encoding="utf-8")
