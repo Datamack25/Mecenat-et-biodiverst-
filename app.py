@@ -8,6 +8,7 @@ from hero import HERO_SVG
 import html as _html, random, urllib.parse
 import content
 import pdf_export as px
+import associations as AS
 
 PLATFORM_NAME = "Veille Outre-mer · Biodiversité · Insertion · Mécénat"  # <- modifiez ici le nom de la plateforme
 JOURS = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"]
@@ -72,9 +73,9 @@ def load_actors():
     except Exception:
         return core.D.ACTORS
 
-APP_VERSION = "3.1 · 09/10/2026"
-PAGES = ["🏠 Accueil", "📰 Actualités", "🏛️ Fondations & acteurs", "💼 Emplois", "📚 Encyclopédie", "📖 Lectures & textes", "🗺️ Territoires", "🧰 Boîtes à outils"]
-TH = {"outremer": "Outre-mer", "biodiversite": "Biodiversité", "insertion": "Insertion pro", "mecenat": "Mécénat", "rse": "RSE / réglementaire", "emploi": "Emploi", "fondations": "Fondations", "competences": "Mécénat de compétences", "philanthropie": "Philanthropie / emploi"}
+APP_VERSION = "3.2 · 17/10/2026"
+PAGES = ["🏠 Accueil", "📰 Actualités", "🏛️ Fondations & acteurs", "🤝 Associations", "💼 Emplois", "📚 Encyclopédie", "📖 Lectures & textes", "🗺️ Territoires", "🧰 Boîtes à outils"]
+TH = {"outremer": "Outre-mer", "biodiversite": "Biodiversité", "insertion": "Insertion pro", "mecenat": "Mécénat", "rse": "RSE / réglementaire", "emploi": "Emploi", "fondations": "Fondations", "competences": "Mécénat de compétences", "philanthropie": "Philanthropie / emploi", "associations": "Associations"}
 e = lambda x: _html.escape(str("" if x is None else x), quote=True)
 
 CSS = """<style>
@@ -110,6 +111,13 @@ input,textarea,[data-baseweb="input"],[data-baseweb="textarea"],[data-baseweb="s
 .tag{display:inline-block;background:#e3f3ee;color:#0e7c66!important;border-radius:12px;padding:2px 10px;font-size:.75rem;font-weight:700;margin:0 5px 4px 0}.tag.p{background:#fff1e0;color:#b25e00!important}
 .st-key-tools{padding-bottom:20px}
 .creator{background:#06483b;margin:30px -5vw 0;text-align:center;padding:26px 5vw;font-size:.92rem;line-height:1.7}.creator,.creator *{color:#fff!important}
+.voc{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin:8px 0;align-items:start}
+.voc details{background:#fff;border:1px solid #dfe9e5;border-radius:14px;padding:12px 16px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.voc details[open]{border-color:#0e7c66;box-shadow:0 6px 18px rgba(6,72,59,.12)}
+.voc summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:700;color:#13231f}
+.voc summary::-webkit-details-marker{display:none}.voc summary:after{content:"▾";color:#0e7c66;transition:transform .2s}.voc details[open] summary:after{transform:rotate(180deg)}
+.voc .df{margin:10px 0 8px;font-size:.93rem;line-height:1.5}
+.tag.ok{background:#e3f3ee;color:#1e7b34!important}.tag.pr{background:#fff7d6;color:#8a6d00!important}.tag.ko{background:#fdeceb;color:#b03a2e!important}
 @media(max-width:800px){.st-key-maj{top:auto;bottom:16px;right:16px}.st-key-page{padding-right:5vw}}
 </style>"""
 st.markdown(CSS, unsafe_allow_html=True)
@@ -171,6 +179,7 @@ if st.button("🔄 Mettre à jour la plateforme", key="maj"):
 page = st.radio("Menu", PAGES, horizontal=True, key="page", label_visibility="collapsed")
 
 N, A, E = load_news(), load_actors(), load_enc()
+NB_ASSOS = sum(len(v) for v in AS.ASSOS.values())
 META = (PLATFORM_NAME, today_fr())
 PDFS = {
     "news": ("Actualités", "actualites", px.cards_pdf("Actualités", [(n["title"], f'{n["theme"]} | {n["territory"]} | {n["source"]} | {(n["date"] or "")[:10]}', n["link"]) for n in N["items"][:300]], META)),
@@ -180,12 +189,13 @@ PDFS = {
     "geo": ("Territoires", "territoires", px.table_pdf("Territoires et communes", pd.DataFrame(content.geo_rows(), columns=["Territoire", "Commune", "Type", "Statut"]), META)),
     "jobs": ("Emplois", "emplois", px.cards_pdf("Emplois : intitulés et employeurs", [(j[0], j[1], "Employeurs : " + j[2]) for j in content.JOBS["titres"]] + [(r[0], f"{r[1]} | {r[2]}", "Postes : " + r[3]) for r in content.JOBS["recruteurs"]] + [(j[0], "Philanthropie et mécénat | " + j[1], "Employeurs : " + j[2]) for j in content.PHIL_JOBS["titres"]], META)),
     "found": ("Fondations", "fondations", px.cards_pdf("Fondations et intermédiaires du mécénat", [(f["n"], f["t"] + " | " + ", ".join(f["d"]), f["x"] + (" Engagement des collaborateurs : " + f["c"] + "." if f["c"] else "")) for f in content.FOUND + content.INTERMEDIARIES], META)),
+    "assos": ("Associations", "associations", px.cards_pdf("Associations biodiversité et insertion par territoire", [(a[0], f"{t} | {a[1]} | {a[3]} | lien : {a[5]}", a[2] + " - " + AS.link(a[0], t, a[4])) for t, L in AS.ASSOS.items() for a in L], META)),
     "regs": ("Réglementation", "reglementation", px.cards_pdf("RSE et réglementation", [(r[1], r[0], r[2]) for r in content.REGS], META)),
 }
 
 with st.sidebar:  # Administration : flèche verte en haut à gauche pour ouvrir ce volet
     st.subheader("⚙️ Administration")
-    st.caption(f"{len(E)} termes · {len(A)} acteurs · {len(N['items'])} articles")
+    st.caption(f"{len(E)} termes · {len(A)} acteurs · {NB_ASSOS} associations · {len(N['items'])} articles")
     st.download_button("⬇️ Encyclopédie (CSV)", open(core.CSV, "rb").read(), f"encyclopedie_{paris():%Y-%m-%d}.csv", "text/csv", key="dl_admin")
     with st.form("add", clear_on_submit=True):
         t = st.text_input("Terme"); c = st.text_input("Catégorie", "Concepts")
@@ -219,13 +229,13 @@ NONE = '<div class="card">Aucun article pour le moment. Cliquez sur « Mettre à
 
 if page == PAGES[0]:
     st.markdown(hero_html(), unsafe_allow_html=True)
-    stats = [(len(N["items"]), "articles en veille"), (len(A), "acteurs référencés"), (len(E), "termes d'encyclopédie"), (fmt_upd(N["updated"]), "dernière mise à jour")]
+    stats = [(len(N["items"]), "articles en veille"), (len(A), "acteurs référencés"), (NB_ASSOS, "associations à contacter"), (len(E), "termes d'encyclopédie"), (fmt_upd(N["updated"]), "dernière mise à jour")]
     st.markdown('<div class="stats">' + "".join(f'<div class="stat"><b>{e(v)}</b><span>{l}</span></div>' for v, l in stats) + "</div>", unsafe_allow_html=True)
     st.subheader("À la une")
     grid([ncard(n) for n in N["items"][:6]] or [NONE])
     st.subheader("Explorer")
     cols = st.columns(3)
-    for col, (p, x) in zip(cols, [(PAGES[1], "Suivez l'actualité des territoires, de la biodiversité, de l'insertion et du mécénat."), (PAGES[2], "Fondations et acteurs, publics et privés : biodiversité, insertion, mécénat de compétences."), (PAGES[4], "Comprendre les grands concepts, avec définitions et exemples.")]):
+    for col, (p, x) in zip(cols, [(PAGES[1], "Suivez l'actualité des territoires, de la biodiversité, de l'insertion et du mécénat."), (PAGES[3], "150 associations biodiversité et insertion, réparties par territoire, avec leurs liens."), (PAGES[4], "Comprendre les grands concepts, avec définitions et exemples.")]):
         col.markdown(f'<div class="card"><h3>{e(p)}</h3><p>{e(x)}</p></div>', unsafe_allow_html=True)
         col.button("Ouvrir →", key="go_" + p, on_click=goto, args=(p,))
 elif page == PAGES[1]:
@@ -262,6 +272,27 @@ elif page == PAGES[2]:
         st.caption(f"{len(L)} acteurs (liens à vérifier avant diffusion)")
         grid([card([(a_["t"], 1)] + [(d, 0) for d in a_["d"]], a_["n"] + (" ↗" if a_.get("u") else ""), a_["x"], link=a_.get("u")) for a_ in L])
 elif page == PAGES[3]:
+    banner("Associations", "Associations de biodiversité et d'insertion professionnelle à contacter, réparties par territoire.", "assos")
+    FB = {"Confirmé": "ok", "Probable": "pr", "À trouver": "ko"}
+    c1, c2, c3 = st.columns([1, 1, 2])
+    th = c1.selectbox("Thématique", ["Toutes"] + AS.THEMES, key="as_th"); fi = c2.selectbox("Fiabilité du lien", ["Toutes"] + list(FB), key="as_fi")
+    q = c3.text_input("Rechercher une association", key="as_q")
+    st.caption("« À trouver » : aucun site confirmé, le lien ouvre une recherche LinkedIn. Vérifiez chaque lien avant prise de contact.")
+    tabs = st.tabs([f"{t} ({len(L)})" for t, L in AS.ASSOS.items()])
+    for tab, (t, L) in zip(tabs, AS.ASSOS.items()):
+        with tab:
+            R = [a for a in L if (th == "Toutes" or a[1] == th) and (fi == "Toutes" or a[5] == fi) and q.lower() in (a[0] + a[2] + a[3]).lower()]
+            m1, m2, m3 = st.columns(3)
+            m1.metric("Biodiversité", sum(a[1] == AS.THEMES[0] for a in L)); m2.metric("Insertion", sum(a[1] == AS.THEMES[1] for a in L)); m3.metric("Les deux", sum(a[1] == AS.THEMES[2] for a in L))
+            st.caption(f"{len(R)} / {len(L)} associations")
+            acard = lambda a: card([(a[1], 0), (a[3], 1)], a[0] + " ↗", a[2], meta="Lien : " + ("recherche LinkedIn" if not a[4] else a[4].split("//")[-1].rstrip("/")), link=AS.link(a[0], t, a[4])).replace("</h3>", f'</h3><span class="tag {FB[a[5]]}">Lien {a[5].lower()}</span>', 1)
+            grid([acard(a) for a in R] or ['<div class="card">Aucune association ne correspond aux filtres.</div>'])
+            df = pd.DataFrame([[a[0], a[1], a[2], a[3], AS.link(a[0], t, a[4]), a[5]] for a in L], columns=["Association", "Thématique", "Activité", "Zone", "Lien", "Fiabilité"])
+            st.download_button(f"⬇️ {t} en CSV", df.to_csv(index=False).encode("utf-8-sig"), f"associations_{t}.csv", "text/csv", key="as_csv_" + t)
+            news_t = [n for n in N["items"] if n["theme"] == "associations" and n["territory"] == t]
+            st.subheader(f"Veille : vie associative en {t}")
+            grid([ncard(n) for n in news_t[:6]] or [NONE])
+elif page == PAGES[4]:
     banner("Emplois", "Métiers, employeurs et pistes de recherche : environnement, insertion, philanthropie et mécénat.", "jobs")
     ter = st.selectbox("Territoire de recherche", ["Outre-mer", "Guadeloupe", "Martinique", "Mayotte", "La Réunion", "Guyane", "France"])
     st.markdown("[France Travail ↗](https://www.francetravail.fr) · [Apec ↗](https://www.apec.fr) · [Welcome to the Jungle ↗](https://www.welcometothejungle.com)")
@@ -272,15 +303,20 @@ elif page == PAGES[3]:
     with jp:
         jl(content.PHIL_JOBS["titres"]); st.subheader("Acteurs qui recrutent"); grid([card([(r[1], 1)], r[0], f"{r[2]} · {r[3]}") for r in content.PHIL_JOBS["recruteurs"]])
         st.subheader("Veille : actualités emploi et philanthropie"); grid([ncard(n) for n in [n for n in N["items"] if n["theme"] in ("philanthropie", "emploi")][:9]] or [NONE])
-elif page == PAGES[4]:
+elif page == PAGES[5]:
     banner("Encyclopédie", "Termes, définitions et exemples pour comprendre la biodiversité, l'insertion, le mécénat et la RSE.", "encyc")
     c1, c2 = st.columns([1, 2])
     cat = c1.selectbox("Catégorie", ["Toutes"] + sorted(E.categorie.unique())); q = c2.text_input("Rechercher un terme")
     D_ = E[(E.categorie == cat) | (cat == "Toutes")]
-    D_ = D_[(D_.terme + D_.definition + D_.exemple).str.contains(q, case=False, regex=False)].sort_values("terme")
+    D_ = D_[(D_.terme + D_.definition + D_.exemple).str.contains(q, case=False, regex=False)]
+    D_ = D_.iloc[D_.terme.map(core.norm).argsort()]  # ordre alphabétique sans tenir compte des accents ni des majuscules
     st.caption(f"{len(D_)} / {len(E)} termes")
-    grid([card([(r["categorie"], 0)], r["terme"], r["definition"], f'{r["source"]} · {r["date_ajout"]}', ex=(f"<b>Exemple :</b> {e(r['exemple'])}" if r["exemple"] else "")) for r in D_.to_dict("records")])
-elif page == PAGES[5]:
+    st.caption("Cliquez sur un terme pour dérouler sa définition et un exemple.")
+    voc = lambda r: (f'<details><summary><span>{e(r["terme"])}</span></summary><span class="tag">{e(r["categorie"])}</span>'
+                     f'<div class="df">{e(r["definition"])}</div>' + (f'<div class="ex"><b>Exemple :</b> {e(r["exemple"])}</div>' if r["exemple"] else "")
+                     + f'<div class="meta">{e(r["source"])} · {e(r["date_ajout"])}</div></details>')
+    st.markdown('<div class="voc">' + "".join(voc(r) for r in D_.to_dict("records")) + "</div>", unsafe_allow_html=True)
+elif page == PAGES[6]:
     banner("Lectures & textes", "Fiches de lecture sur la biodiversité et les espèces envahissantes ; textes clés RSE et mécénat (à vérifier avant usage).", "reads")
     tl, tr = st.tabs(["📖 Fiches de lecture", "⚖️ Réglementation"])
     with tl:
@@ -295,7 +331,7 @@ elif page == PAGES[5]:
     with tr:
         st.download_button("📄 Réglementation en PDF", PDFS["regs"][2], "reglementation.pdf", "application/pdf", key="dl_regs2")
         grid([card([(r[0], 0)], r[1], r[2]) for r in content.REGS])
-elif page == PAGES[6]:
+elif page == PAGES[7]:
     banner("Territoires", "Communes de la Guadeloupe, de la Martinique, de Mayotte, de La Réunion et de la Guyane.", "geo")
     G = content.geo_rows(); T = list(content.GEO)
     c1, c2 = st.columns([1, 2])
