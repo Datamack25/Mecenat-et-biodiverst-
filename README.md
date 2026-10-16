@@ -24,3 +24,10 @@ Site entièrement rendu par Streamlit (plus d'iframe : plus d'espace blanc). Men
 
 ## Version 3.1
 Menu simplifié (8 pages). Nouveau : « Fondations & acteurs » (fondations biodiversité/insertion, veille mécénat de compétences) et onglet « Philanthropie & mécénat » dans Emplois. Données dans `content.py`.
+
+## Version 3.2 (17/10/2026)
+- Nouvelle page « 🤝 Associations » : 150 associations biodiversité / insertion réparties par territoire (Martinique, Guadeloupe, Guyane, La Réunion, Mayotte), filtres, export CSV/PDF et veille « vie associative » par territoire. Données dans `associations.py`.
+- Encyclopédie : +190 termes (`vocabulaire.py`), soit 260 au total ; chaque terme se déroule au clic (définition + exemple).
+- Le bouton « Mettre à jour la plateforme » collecte aussi l'actualité associative des 5 territoires.
+- Le dépôt peut rester « à plat » : les fichiers de données à la racine sont recopiés dans `data/`, et les scripts fonctionnent à la racine ou dans `scripts/`.
+- Le fichier `update.yml` doit être placé dans `.github/workflows/` pour que la mise à jour quotidienne automatique fonctionne.
