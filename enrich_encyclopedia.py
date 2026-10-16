@@ -1,4 +1,5 @@
 import os, sys, pathlib
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
+HERE = pathlib.Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parent if (HERE.parent / "core.py").exists() else HERE))  # marche dans scripts/ ou à la racine
 import core
 print(core.enrich(int(os.getenv("N_TERMS", "10"))))
