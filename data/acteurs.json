@@ -1,0 +1,255 @@
+[
+ {
+  "n": "Ministère des Outre-mer (DGOM)",
+  "t": "Public",
+  "d": [
+   "Territoires",
+   "Insertion"
+  ],
+  "x": "Politique de l'État pour les territoires ultramarins, emploi, formation, cohésion sociale."
+ },
+ {
+  "n": "Ministère de la Transition écologique",
+  "t": "Public",
+  "d": [
+   "Biodiversité"
+  ],
+  "x": "Stratégie nationale biodiversité, aires protégées, cadre réglementaire.",
+  "u": "https://www.ecologie.gouv.fr"
+ },
+ {
+  "n": "Office français de la biodiversité (OFB)",
+  "t": "Public",
+  "d": [
+   "Biodiversité"
+  ],
+  "x": "Police de l'environnement, appui technique, outre-mer inclus (directions territoriales).",
+  "u": "https://www.ofb.gouv.fr"
+ },
+ {
+  "n": "Conservatoire du littoral",
+  "t": "Public",
+  "d": [
+   "Biodiversité"
+  ],
+  "x": "Acquisition et gestion d'espaces naturels littoraux, dont outre-mer.",
+  "u": "https://www.conservatoire-du-littoral.fr"
+ },
+ {
+  "n": "Parcs nationaux (Guadeloupe, Guyane, Réunion, Mayotte marin…)",
+  "t": "Public",
+  "d": [
+   "Biodiversité"
+  ],
+  "x": "Protection d'espaces remarquables, éducation, emplois locaux.",
+  "u": "https://www.parcsnationaux.fr"
+ },
+ {
+  "n": "IFRECOR",
+  "t": "Public",
+  "d": [
+   "Biodiversité"
+  ],
+  "x": "Initiative française pour les récifs coralliens, mangroves et herbiers."
+ },
+ {
+  "n": "Muséum national d'Histoire naturelle (MNHN / PatriNat)",
+  "t": "Public",
+  "d": [
+   "Biodiversité"
+  ],
+  "x": "Inventaires (INPN), expertise scientifique, collections.",
+  "u": "https://www.mnhn.fr"
+ },
+ {
+  "n": "IRD · CNRS · CIRAD",
+  "t": "Public",
+  "d": [
+   "Biodiversité"
+  ],
+  "x": "Recherche en milieux tropicaux, écologie, agronomie.",
+  "u": "https://www.ird.fr"
+ },
+ {
+  "n": "Conservatoires botaniques nationaux (Mascarin, Guadeloupe…)",
+  "t": "Public",
+  "d": [
+   "Biodiversité"
+  ],
+  "x": "Connaissance et conservation de la flore."
+ },
+ {
+  "n": "ADEME",
+  "t": "Public",
+  "d": [
+   "Biodiversité",
+   "Insertion"
+  ],
+  "x": "Transition écologique, financement de projets, emplois verts.",
+  "u": "https://www.ademe.fr"
+ },
+ {
+  "n": "Agence française de développement (AFD) · Biodiv'OM",
+  "t": "Public",
+  "d": [
+   "Biodiversité",
+   "Insertion"
+  ],
+  "x": "Financement de projets de développement durable en outre-mer.",
+  "u": "https://www.afd.fr"
+ },
+ {
+  "n": "France Travail (ex-Pôle emploi)",
+  "t": "Public",
+  "d": [
+   "Insertion"
+  ],
+  "x": "Accompagnement des demandeurs d'emploi, formations.",
+  "u": "https://www.francetravail.fr"
+ },
+ {
+  "n": "LADOM",
+  "t": "Public",
+  "d": [
+   "Insertion"
+  ],
+  "x": "Agence de l'outre-mer pour la mobilité : formation et emploi hors territoire.",
+  "u": "https://www.ladom.fr"
+ },
+ {
+  "n": "Service militaire adapté (SMA)",
+  "t": "Public",
+  "d": [
+   "Insertion"
+  ],
+  "x": "Dispositif d'insertion socioprofessionnelle des jeunes ultramarins."
+ },
+ {
+  "n": "Missions locales (UNML)",
+  "t": "Public",
+  "d": [
+   "Insertion"
+  ],
+  "x": "Insertion des 16–25 ans, Garantie jeunes / Contrat d'engagement jeune.",
+  "u": "https://www.unml.info"
+ },
+ {
+  "n": "DEETS / DEETS-OM",
+  "t": "Public",
+  "d": [
+   "Insertion"
+  ],
+  "x": "Services déconcentrés de l'État : emploi, travail, solidarités."
+ },
+ {
+  "n": "Collectivités (Régions, Collectivités territoriales, Gouvernements)",
+  "t": "Public",
+  "d": [
+   "Biodiversité",
+   "Insertion"
+  ],
+  "x": "Compétences environnement et formation professionnelle (selon statut)."
+ },
+ {
+  "n": "UICN France",
+  "t": "Privé / Association",
+  "d": [
+   "Biodiversité"
+  ],
+  "x": "Réseau d'experts et d'organisations, Liste rouge, Comité français.",
+  "u": "https://uicn.fr"
+ },
+ {
+  "n": "WWF France",
+  "t": "Privé / Association",
+  "d": [
+   "Biodiversité"
+  ],
+  "x": "Programmes en Guyane, Nouvelle-Calédonie, Pacifique.",
+  "u": "https://www.wwf.fr"
+ },
+ {
+  "n": "LPO (et antennes locales)",
+  "t": "Privé / Association",
+  "d": [
+   "Biodiversité"
+  ],
+  "x": "Protection des oiseaux et des milieux.",
+  "u": "https://www.lpo.fr"
+ },
+ {
+  "n": "Fondation pour la recherche sur la biodiversité (FRB)",
+  "t": "Privé / Fondation",
+  "d": [
+   "Biodiversité"
+  ],
+  "x": "Interface science–société–entreprises.",
+  "u": "https://www.fondationbiodiversite.fr"
+ },
+ {
+  "n": "Fondation de la Mer",
+  "t": "Privé / Fondation",
+  "d": [
+   "Biodiversité"
+  ],
+  "x": "Financement de projets de protection marine.",
+  "u": "https://www.fondationdelamer.org"
+ },
+ {
+  "n": "Fondation Tara Océan",
+  "t": "Privé / Fondation",
+  "d": [
+   "Biodiversité"
+  ],
+  "x": "Expéditions scientifiques, sensibilisation océan.",
+  "u": "https://fondationtaraocean.org"
+ },
+ {
+  "n": "Fondation de France",
+  "t": "Privé / Fondation",
+  "d": [
+   "Mécénat",
+   "Insertion",
+   "Biodiversité"
+  ],
+  "x": "Programmes emploi, environnement, territoires.",
+  "u": "https://www.fondationdefrance.org"
+ },
+ {
+  "n": "Fondation pour la Nature et l'Homme",
+  "t": "Privé / Fondation",
+  "d": [
+   "Biodiversité"
+  ],
+  "x": "Plaidoyer et projets de transition écologique.",
+  "u": "https://www.fnh.org"
+ },
+ {
+  "n": "ADIE",
+  "t": "Privé / Association",
+  "d": [
+   "Insertion"
+  ],
+  "x": "Microcrédit et accompagnement des créateurs d'entreprise.",
+  "u": "https://www.adie.org"
+ },
+ {
+  "n": "Réseau Entreprendre",
+  "t": "Privé / Association",
+  "d": [
+   "Insertion"
+  ],
+  "x": "Prêts d'honneur et mentorat pour créateurs.",
+  "u": "https://www.reseau-entreprendre.org"
+ },
+ {
+  "n": "Entreprises engagées (RSE, fondations d'entreprise)",
+  "t": "Privé",
+  "d": [
+   "Mécénat",
+   "Insertion",
+   "Biodiversité"
+  ],
+  "x": "Mécénat financier, de compétences ou en nature ; clauses d'insertion."
+ }
+]
